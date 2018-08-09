@@ -5,8 +5,9 @@ import json
 
 def lambda_handler(event, context):
     connectInfo = []
-    for attachment in event['attachments']:
-        connectInfo.append({"title":"", "description":attachment['text']})
+    if event.get('attachments', None) :
+        for attachment in event['attachments']:
+            connectInfo.append({"title":"", "description":attachment['text']})
         
     conn = httplib.HTTPSConnection('wh.jandi.com')
     headers = {'Accept':'application/vnd.tosslab.jandi-v2+json', 'Content-Type':'application/json'}
